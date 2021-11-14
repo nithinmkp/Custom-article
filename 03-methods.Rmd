@@ -1,0 +1,22 @@
+# Data and Methodology {#sec2}
+
+## Data {#sec21} 
+We use monthly export, import and trade balance data from January 2018 to June 2021 for our analysis. We gather all the trade-related statistics from the Department of Commerce, Ministry of Commerce and Industry, Government of India. All data are in million dollars.
+
+## Methodology {#sec22}
+To the end of analyzing both the immediate and long term impact of  COVID-19 on export, import, and trade balance, this study employs the method of Intervention Time Series Analysis (ITSA). In time series, intervention analysis is the study of how the mean level of a series changes after an intervention where the Autoregressive Integrated Moving Average (ARIMA) structure of the series is assumed to be the same before and after the intervention. Earlier studies employed intervention analysis to investigate the influence of air pollution control and economic policies [@Box1975], the impact of the Arab oil embargo [@Montgomery1980], the impact of digitalisation on the economy [@Nithin2018] and a variety of other topics [@Leong2017; @Linden2015].
+
+
+Intervention time series models can take different forms. Depending up on the nature of the intervention, the impact can range from a one-time impact to a sustained impact on the outcome variable. Further policy changes may have  no impact on the outcome variable or an immediate and sustained impact on the variable.
+
+Following @wei2006 and @Nithin2018, we identify two types of intervention models viz. Step-Function and Pulse-Function. Step-Functions are intervention models where a series exhibits a constant permanent change (level-shift equal to a constant) after the intervention occurs while in a Pulse-Function series has an immediate change (in level) followed by a reverse trend that results in the series returning to pre-intervention levels.
+
+As is well recognised in the literature, Covid-19 has both immediate and sustained impact on our variables of interest, we proceed to estimate \@ref(eq:eq1) :
+\begin{equation}
+(\#eq:eq1)
+y=\beta_0+\beta_1\cdot T+\beta_2\cdot D+\beta_3\cdot P+\epsilon_t
+\end{equation}
+Where Y is outcome variable,
+T is a continuous variable indicating the time,
+D is the dummy variable and
+P is a continuous variable indicating time elapsed since the intervention occurred.  

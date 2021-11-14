@@ -1,0 +1,41 @@
+---
+title: |
+  | Covid-19 and deterioration of India’s Trade: Demystifying the myth
+  | \vspace{-10truemm}
+author:
+   - Nithin M^[Department of HSS, Indian Institute of Technology-Kharagpur, write2nithinm@iitkgp.ac.in]
+   - Baiju P^[Department of Humanities and Sciences, National Institute of Technology-Goa, baijup@nitgoa.ac.in]
+   - Renjith Ramachandran^[Corresponding Author,Department of Economics,Indian Institute of Management-Ranchi,renjith.r@iimranchi.ac.in]
+output:
+   bookdown::pdf_document2:
+    keep_tex: true
+    extra_dependencies: "subfig"
+    number_sections: true
+    toc: false
+    citation_package: natbib 
+    fig_caption: yes 
+    latex_engine: xelatex      
+    includes:
+      in_header: "preamble.tex"
+documentclass: article
+link-citations: yes
+urlcolor: blue
+linkcolor: blue
+citecolor: blue 
+indent: true
+papersize: a4
+fontsize: 12pt
+bibliography: ["Covid-Paper.bib"]
+biblio-style: "apalike"
+csl: apa.csl
+site: bookdown::bookdown_site
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,fig.pos = 'H')
+library(here)
+library(knitr)
+source("script_bookdown.R", local = knitr::knit_global())
+```
+
+
+

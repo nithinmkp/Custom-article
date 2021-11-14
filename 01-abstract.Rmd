@@ -1,0 +1,9 @@
+\sectionfont{\centering}
+# Abstract {- }
+
+The emergence of Covid-19 and the enforcement of restrictions on movement of goods and services brought world economy to a standstill. The unanticipated disruption in global supply chain and movement of goods and services had deteriorated trade volumes globally. Due to the pandemic, most economic indicators reported poor performance; international trade is not an exception and this decline in economic indicators is expected to continue through the Covid-19 period. Against this wider belief, this study uses Intervention time series analysis and find that the impact of Covid-19 on India's trade indicators are a temporary phenomenon. Results from our empirical exercise provide evidence that post-intervention trade indicators might improve. 
+\vspace{1em}
+
+**Keywords:** *Covid-19, Trade Deterioration, Intervention Time series Analysis, Pulse-Function*
+
+\sectionfont{\raggedright}

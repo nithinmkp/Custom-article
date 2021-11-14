@@ -1,0 +1,69 @@
+# Results and Discussion {#sec3}  
+
+Before undertaking ITSA, we analyse the trend of exports, imports and trade balance before and after the intervention i.e. the lockdown. The trend analysis helps  understand the pattern of trade variables and ensures the basic condition for employing ITSA i.e. the ARIMA structure of the series remaining constant is fulfilled. 
+```{r trend, echo=FALSE,fig.align='center',fig.height=2,fig.width=2.75,out.width="100%",fig.cap="Trend analysis of selected variables",fig.pos='h'}
+include_graphics(here("Figures","trend_plot.jpg"))
+```
+\Cref{fig:trend} shows the trend analysis of the variables under the study. It is evident that exports of India were on a declining trend before the intervention albeit less significant. On a similar note, imports too were declining significantly and at a larger magnitude than that of exports. The faster decline in imports compared to  the exports resulted in improvement of India's trade balance before the world economy was shut down due the Covid-19 pandemic. As expected, trade suffered in the month when lockdown was imposed as most of the crucial economic variables like GDP and employment. It is also evident that both exports and imports recovered the very next month and continue to recover as the world economy gradually opened for trade. On the contrary, as was the case before the lockdown, trade balance presents stark difference in the trend post-intervention. The faster growth in imports once the world economy was open for trade caused trade balance to worsen post-lockdown period. The overall trend of trade balance is then negative implying deterioration in trade balance. Is this worrying for India post Covid-19? We think otherwise and present some piece of evidence.
+
+
+As discussed in \Cref{sec22}, the variables under the study seem to maintain the same ARIMA structure both pre-and post-intervention fulfilling the condition for ITSA. Accordingly, we estimate \@ref(eq:eq1) to analyse the impact of Covid-19 on selected variables pre-and post intervention periods.
+
+```{r include=FALSE}
+is_rtf <- knitr::opts_knit$get("rmarkdown.pandoc.to") == 'rtf'
+is_latex <- knitr::opts_knit$get("rmarkdown.pandoc.to") == 'latex'
+```
+```{r ketxra, include=FALSE}
+options(kableExtra.latex.load_packages = FALSE)
+```
+```{r tab1,eval=!is_rtf,echo=F,results='asis',fig.pos='!H'}
+
+library(kableExtra)
+cat("\\renewcommand{\\arraystretch}{1.23}  \n")
+modelsummary(mod_ols,stars = c("*"=0.1,"**"=0.05,"***"=0.01),
+             gof_map = gof_map2,
+             statistic = "statistic",
+             coef_rename = c("(Intercept)"="Constant",
+                             "time"="time (Pre-Intervention trend)",
+                             "level"="level (Immediate Impact)",
+                             "trend"="trend (Post-Intervention trend)"),
+             output = "kableExtra",
+             title = "ITSA estimates of Exports, Imports and Trade Balance"
+             ) %>% kable_styling(full_width = F,
+                                 latex_options = "hold_position") %>% kable_classic_2() %>% 
+        add_footnote("Standard Error in parenthesis",notation = "none",threeparttable = T)
+
+```
+
+\Cref{tab:tab1} shows the results of ITSA of exports, imports and trade balance. As was evident in the figure \Cref{fig:trend}, the decline in exports prior to the imposition of lockdown is not statistically significant (coefficient time). However, the decline in imports before lockdown is significant, implying a faster decline in imports than exports. The trade balance was on an improving trend (significant at 10% level), although this is not due to improvement in export performance. 
+
+The coefficient level indicates the immediate impact of the intervention. The sudden restrictions in movement of goods and services meant that both exports and imports took a beating and resulted in significant drop in their levels. Exports declined by `r reg_table %>% filter(Variable=="Exports",term=="level") %>% select(estimate) %>% round(2)*-1` while imports declined by almost double than the decline in exports (`r reg_table %>% filter(Variable=="Imports",term=="level") %>% select(estimate) %>% round(2)*-1`). The immediate impact of this decline in imports at a higher magnitude than exports is evident in the immediate rise in value of trade balance. The trade balance rose by `r reg_table %>% filter(Variable=="Trade Balance",term=="level") %>% select(estimate) %>% round(2)` in the month of `r format(as.Date(break_date),"%b-%Y")`. 
+
+
+The coefficient trend indicates the change immediately following the intervention. It is clear from the \Cref{fig:trend} that both exports and imports improved significantly in `r format(as.Date(df[break_index+1,1,drop=T]),"%b-%Y")` while the trade balance deteriorated. The increase in exports and imports in `r format(as.Date(df[break_index+1,1,drop=T]),"%b-%Y")` can be attributed to the significant easing of restrictions in operation of ports, railways, movement of trucks and carrier vehicles etc. towards the end of `r format(as.Date(break_date),"%b-%Y")` and beginning of `r format(as.Date(df[break_index+1,1,drop=T]),"%b-%Y")`. This indicates the reversal in trend of exports and imports meaning that exports and imports actually improved in comparison with the pre-lock down period. This is contrary to the wider belief that Covid-19 might worsen the trade statistics. As the case before intervention, the faster rise in imports outweighed the growth in exports leading to a negative trade balance in the months following the intervention. 
+
+As outlined in \Cref{sec22}, Pulse-functions are a class of intervention models where there is a significant level change followed by a reversed trend. Since trade variables in our study exhibit similar behavior, they can be classified as Pulse-functions.  
+
+```{r itsa, echo=FALSE,fig.align='center',fig.height=2.5,fig.width=3,out.width="100%",fig.cap="Intervention plot of selected variables"}
+include_graphics(here("Figures","final_plot_new.jpg"))
+```
+
+\Cref{fig:itsa} elucidates the explained outcome of ITSA estimates. As coefficients indicate, exports and imports are rising post intervention while trade balance exhibit a negative trend. 
+
+
+
+We provide some calculations to cement our claim that Covid-19 has actually not resulted in deterioration of India's trade. \Cref{tab:tabcalc} shows the change and percentage change in actual value of our variables from their expected trend values prior to intervention. First, we calculate the changes at the point of intervention to quantify the immediate change in the variables. Further, we calculate the same at the   end of sample period to determine whether the variables have actually registered an increase or decrease from their expected value. In `r format(as.Date(break_date),"%b-%Y")` (intervention period), both imports and exports registered massive decline due to imposition of lock down while trade balance improves for reasons already mentioned. Interestingly, we calculate change and percentage change as difference between trend and actual values. The change of both Exports and Imports are negative implying that actual values are higher than trend values. This is an evidence that both exports and imports have performed better than their pre lock down expected values. On the other hand, the change in trade balance is still negative. But the trend value is more negative than actual value implying that the performance of trade balance has also improved. Thus, the evidence we provide points that Covid-19 had only a temporary impact on India's trade and benefited India in the post lock-down period. This can be due to India's growing presence in the global value chain and product network which helps India to occupy spaces in world trade map.
+
+```{r tabcalc,echo=F,results='asis'}
+
+cat("\\renewcommand{\\arraystretch}{1.23}  \n")
+calc_table %>% kbl(booktabs = T,caption = "Differences in Trend and Actual values of selected variables")%>%  kable_classic() %>% 
+  kable_styling(latex_options = "hold_position")
+
+```
+
+
+
+
+
+
